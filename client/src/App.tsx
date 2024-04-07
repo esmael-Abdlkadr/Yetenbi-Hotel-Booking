@@ -1,7 +1,11 @@
+import Layout from "./Layout/Layout.tsx";
+
 function App() {
   return (
-    <div>App</div>
-  )
+    <div>
+      <Layout />
+    </div>
+  );
 }
 
-export default App
+export default App;
