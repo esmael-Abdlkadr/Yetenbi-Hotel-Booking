@@ -2,8 +2,7 @@ export type userTYpe = {
   email: string;
   password: string;
   passwordConfirm: string;
-  firstName: string;
-  lastName: string;
+  name: string;
   role: string;
   phone: string;
   address: string;
@@ -52,14 +51,11 @@ const userSchema = new Schema<IUser>(
         message: () => `Password and Confirm Password does not match`,
       },
     },
-    firstName: {
+    name: {
       type: String,
-      required: [true, "First Name is required"],
+      required: [true, "Full Name is required"],
     },
-    lastName: {
-      type: String,
-      required: true,
-    },
+
     role: {
       type: String,
       required: true,

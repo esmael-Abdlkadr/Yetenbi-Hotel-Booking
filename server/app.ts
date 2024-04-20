@@ -9,7 +9,7 @@ const app: Express = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "*", credentials: false }));
 app.use("/api/v1/auth", authRoute);
 app.use(errorMiddleware);
 export default app;

@@ -10,8 +10,8 @@ export interface RequestWithUser extends Request {
 const authController = {
   signup: catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
-      const { email, password, passwordConfirm, firstName, lastName, phone } =
-        req.body;
+      const { email, password, passwordConfirm, name, phone } = req.body;
+      console.log("Signup request body:", req.body);
       const user = await UserModel.findOne({ email });
       if (user) {
         return next(new AppError("User already exists", 400));
@@ -20,19 +20,16 @@ const authController = {
         email,
         password,
         passwordConfirm,
-        firstName,
-        lastName,
+        name,
         phone,
       });
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET!, {
         expiresIn: process.env.JWT_EXPIRES_IN,
       });
-      res.cookie("jwt", token, {
-        expires: new Date(
-          Date.now() +
-            Number(process.env.JWT_COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000,
-        ),
+      res.cookie("jwt_token", token, {
         httpOnly: false,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 1000 * 60 * 60 * 24 * 30,
       });
 
       res.status(201).json({
@@ -46,12 +43,13 @@ const authController = {
     },
   ),
   login: catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password, phone } = req.body;
-    if ((!email && !phone) || !password) {
+    const { emailOrPhone, password } = req.body;
+    console.log("Login request body:", req.body);
+    if (!emailOrPhone || !password) {
       return next(new AppError("Please provide email/phone and password", 400));
     }
     const user = await UserModel.findOne({
-      $or: [{ email }, { password }],
+      $or: [{ email: emailOrPhone }, { phone: emailOrPhone }],
     }).select("+password");
     if (!user || !(await user.comparePassword(password, user.password))) {
       return next(new AppError("Incorrect email/phone or password", 401));
@@ -59,12 +57,10 @@ const authController = {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
       expiresIn: process.env.JWT_EXPIRES_IN,
     });
-    res.cookie("jwt", token, {
-      expires: new Date(
-        Date.now() +
-          Number(process.env.JWT_COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000,
-      ),
+    res.cookie("jwt_token", token, {
       httpOnly: false,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 1000 * 60 * 60 * 24 * 30,
     });
     res.status(200).json({
       status: "success",
