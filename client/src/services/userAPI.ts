@@ -8,8 +8,7 @@ interface signupData {
   passwordConfirm: string;
 }
 interface loginData {
-  email: string;
-  phone: string;
+  emailOrPhone: string;
   password: string;
 }
 interface ResponseData {
@@ -32,17 +31,15 @@ export const signup = async (data: signupData) => {
   }
 };
 //login user.
-export const login = async (data: {
-  emailOrPhone: string;
-  password: string;
-}) => {
+//login user.
+export const login = async (data: loginData) => {
   try {
     const res = await axios.post("/api/v1/auth/login", {
-      email: data.emailOrPhone,
-      phone: data.emailOrPhone,
+      emailOrPhone: data.emailOrPhone,
       password: data.password,
     });
     toast.success(res.data.message);
+    return res.data; // return the response data
   } catch (error) {
     const axiosError = error as AxiosError;
     if (axiosError.response) {

@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import useLogin from "../API hooks/user/useLogin.tsx";
-interface formaData {
+interface formData {
   emailOrPhone: string;
   password: string;
 }
@@ -17,11 +17,8 @@ function Login() {
         "emailOrPhone",
         "Please enter a valid email or phone number",
         (value) =>
-          yup.string().email().isValid(value) ||
-          yup
-            .string()
-            .matches(/^[0-9]{10}$/, "Invalid phone number")
-            .isValid(value),
+          yup.string().email().isValidSync(value) ||
+          /^(\+\d{1,3}[- ]?)?\d{10}$/.test(value),
       )
       .required("Please enter an email or phone number"),
     password: yup
@@ -34,10 +31,10 @@ function Login() {
     reset,
     register,
     formState: { errors },
-  } = useForm<formaData>({
+  } = useForm<formData>({
     resolver: yupResolver(schema),
   });
-  const onSubmit = async (data: formaData) => {
+  const onSubmit = async (data: formData) => {
     try {
       await mutateAsync(data, {
         onSuccess: () => {
