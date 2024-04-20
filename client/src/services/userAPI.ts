@@ -1,12 +1,7 @@
 import axios, { AxiosError } from "axios";
+import { signupFormData } from "../page/Signup.tsx";
 import { toast } from "react-hot-toast";
-interface signupData {
-  name: string;
-  email: string;
-  phone: string;
-  password: string;
-  passwordConfirm: string;
-}
+
 interface loginData {
   emailOrPhone: string;
   password: string;
@@ -14,12 +9,21 @@ interface loginData {
 interface ResponseData {
   message: string;
 }
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 //signup user.
-export const signup = async (data: signupData) => {
-  console.log("data", data);
+export const signup = async (data: signupFormData) => {
   try {
-    const res = await axios.post("/api/v1/auth/signup", data);
-    toast.success(res.data.message);
+    const res = await axios.post(`${API_BASE_URL}/api/v1/auth/signup`, data);
+    // check if status code is in 200 ranges.
+    if (res.status >= 200 && res.status < 300) {
+      const resData = res.data;
+      // store token on local storage.
+      localStorage.setItem("token", resData.token);
+      //   save user in local storage.
+      localStorage.setItem("user", JSON.stringify(resData.user));
+      toast.success(resData.message);
+      return resData;
+    }
   } catch (error) {
     const axiosError = error as AxiosError;
     if (axiosError.response) {
@@ -31,15 +35,19 @@ export const signup = async (data: signupData) => {
   }
 };
 //login user.
-//login user.
 export const login = async (data: loginData) => {
   try {
-    const res = await axios.post("/api/v1/auth/login", {
-      emailOrPhone: data.emailOrPhone,
-      password: data.password,
-    });
-    toast.success(res.data.message);
-    return res.data; // return the response data
+    const res = await axios.post(`${API_BASE_URL}/api/v1/auth/login`, data);
+
+    if (res.status >= 200 && res.status < 300) {
+      const resData = res.data;
+      // store token on local storage.
+      localStorage.setItem("token", resData.token);
+      //   save user in local storage.
+      localStorage.setItem("user", JSON.stringify(resData.user));
+      toast.success(resData.message);
+      return resData;
+    }
   } catch (error) {
     const axiosError = error as AxiosError;
     if (axiosError.response) {
@@ -53,8 +61,12 @@ export const login = async (data: loginData) => {
 //logout user.
 export const logout = async () => {
   try {
-    const res = await axios.get("/api/v1/auth/logout");
-    toast.success(res.data.message);
+    const res = await axios.get(`${API_BASE_URL}/api/v1/auth/logout`);
+    if (res.status >= 200 && res.status < 300) {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      toast.success(res.data.message);
+    }
   } catch (error) {
     const axiosError = error as AxiosError;
     if (axiosError.response) {

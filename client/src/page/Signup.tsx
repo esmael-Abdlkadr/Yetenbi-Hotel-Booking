@@ -4,13 +4,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import useSignup from "../API hooks/user/useSignup.tsx";
-interface formData {
+export type signupFormData = {
   name: string;
   email: string;
   phone: string;
   password: string;
   passwordConfirm: string;
-}
+};
 const Signup = () => {
   const { mutateAsync } = useSignup();
   const schema = yup.object().shape({
@@ -41,10 +41,10 @@ const Signup = () => {
     reset,
     register,
     formState: { errors },
-  } = useForm<formData>({
+  } = useForm<signupFormData>({
     resolver: yupResolver(schema),
   });
-  const onSubmit = async (data: formData) => {
+  const onSubmit = async (data: signupFormData) => {
     try {
       await mutateAsync(data, {
         onSuccess: () => {
