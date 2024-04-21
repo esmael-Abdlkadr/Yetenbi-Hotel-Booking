@@ -1,12 +1,10 @@
 import UserModel from "../models/userModel";
+import BlackList from "../models/blackListModel";
 import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppErrror";
 import { Request, Response, NextFunction } from "express";
 import { IUser } from "../models/userModel";
 import jwt from "jsonwebtoken";
-export interface RequestWithUser extends Request {
-  user: IUser;
-}
 const authController = {
   signup: catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
@@ -72,7 +70,7 @@ const authController = {
     });
   }),
   protect: catchAsync(
-    async (req: RequestWithUser, _res: Response, next: NextFunction) => {
+    async (req: Request, _res: Response, next: NextFunction) => {
       let token;
       if (
         req.headers.authorization &&
@@ -80,9 +78,13 @@ const authController = {
       ) {
         token = req.headers.authorization.split(" ")[1];
       }
-      if (!token) {
-        return next(new AppError("You are not logged in! Please login", 401));
+      if (req.cookies.jwt_token) {
+        token = req.cookies.jwt_token;
       }
+      if (!token) {
+        return next(new AppError(" token not found", 401));
+      }
+
       if (!process.env.JWT_SECRET) {
         return next(new AppError("JWT_SECRET not defined", 500));
       }
@@ -100,7 +102,7 @@ const authController = {
     },
   ),
   logout: (_req: Request, res: Response) => {
-    res.cookie("jwt", "loggedout", {
+    res.cookie("jwt_token", "loggedout", {
       expires: new Date(Date.now() + 10 * 1000),
       httpOnly: false,
     });
@@ -109,8 +111,12 @@ const authController = {
       message: "User logged out successfully",
     });
   },
+  //   verify tokens.
+  verifyToken: (req: Request, res: Response, next: NextFunction) => {
+    res.status(200).send({ userId: req.userId });
+  },
   updatePassword: catchAsync(
-    async (req: RequestWithUser, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response, next: NextFunction) => {
       const user = await UserModel.findById(req.user.id).select("+password");
       if (!user) {
         return next(new AppError("User not found", 404));

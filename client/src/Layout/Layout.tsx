@@ -1,6 +1,6 @@
-import Header from "../Components/Header.tsx";
-import Hero from "../Components/Hero.tsx";
-import FooterComp from "../Components/Footer.tsx";
+import Header from "../component/Header.tsx";
+import Hero from "../component/Hero.tsx";
+import FooterComp from "../component/Footer.tsx";
 import React from "react";
 interface props {
   children: React.ReactNode;

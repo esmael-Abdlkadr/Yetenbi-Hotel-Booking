@@ -13,14 +13,17 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 //signup user.
 export const signup = async (data: signupFormData) => {
   try {
-    const res = await axios.post(`${API_BASE_URL}/api/v1/auth/signup`, data);
+    const res = await axios.post(`${API_BASE_URL}/api/v1/auth/signup`, data, {
+      withCredentials: true,
+    });
     // check if status code is in 200 ranges.
     if (res.status >= 200 && res.status < 300) {
       const resData = res.data;
+
       // store token on local storage.
-      localStorage.setItem("token", resData.token);
+      localStorage.setItem("token", resData.data.token);
       //   save user in local storage.
-      localStorage.setItem("user", JSON.stringify(resData.user));
+      localStorage.setItem("user", JSON.stringify(resData.data.newUser));
       toast.success(resData.message);
       return resData;
     }
@@ -41,10 +44,11 @@ export const login = async (data: loginData) => {
 
     if (res.status >= 200 && res.status < 300) {
       const resData = res.data;
+
       // store token on local storage.
-      localStorage.setItem("token", resData.token);
+      localStorage.setItem("token", resData.data.token);
       //   save user in local storage.
-      localStorage.setItem("user", JSON.stringify(resData.user));
+      localStorage.setItem("user", JSON.stringify(resData.data.user));
       toast.success(resData.message);
       return resData;
     }
@@ -59,13 +63,14 @@ export const login = async (data: loginData) => {
   }
 };
 //logout user.
+
 export const logout = async () => {
   try {
-    const res = await axios.get(`${API_BASE_URL}/api/v1/auth/logout`);
+    const res = await axios.post(`${API_BASE_URL}/api/v1/auth/logout`);
     if (res.status >= 200 && res.status < 300) {
-      localStorage.removeItem("user");
-      localStorage.removeItem("token");
       toast.success(res.data.message);
+    } else {
+      throw new Error("Logout failed");
     }
   } catch (error) {
     const axiosError = error as AxiosError;
@@ -75,5 +80,10 @@ export const logout = async () => {
     } else {
       toast.error("Something went wrong");
     }
+  } finally {
+    // remove user and token from local storage
+    // regardless of server request is correct or not.
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
   }
 };

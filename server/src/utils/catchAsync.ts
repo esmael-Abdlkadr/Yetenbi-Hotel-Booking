@@ -1,14 +1,13 @@
-import { Response, NextFunction } from "express";
-import { RequestWithUser } from "../controllers/authController";
+import { Request, Response, NextFunction } from "express";
 
 type AsyncFunction = (
-  req: RequestWithUser,
+  req: Request,
   res: Response,
   next: NextFunction,
 ) => Promise<void>;
 
 const catchAsync = (fn: AsyncFunction) => {
-  return (req: RequestWithUser, res: Response, next: NextFunction) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     fn(req, res, next).catch(next);
   };
 };

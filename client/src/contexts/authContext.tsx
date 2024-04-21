@@ -8,27 +8,28 @@ interface AuthContextType {
 interface AuthContextProviderProps {
   children: ReactNode;
 }
-//create context.
-const AuthContext = createContext<AuthContextType | null>(null);
-const useAuthContext = () => {
-  return useContext(AuthContext);
-};
-const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
+
+export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
+  const userFromStorage = localStorage.getItem("user");
+  const tokenFromStorage = localStorage.getItem("token");
+
   const [user, setUser] = useState<string | null>(
-    localStorage.getItem("user") || null,
+    userFromStorage && userFromStorage !== "undefined"
+      ? JSON.parse(userFromStorage)
+      : null,
   );
   const [token, setToken] = useState<string | null>(
-    localStorage.getItem("token") || null,
+    tokenFromStorage && tokenFromStorage !== "undefined"
+      ? tokenFromStorage
+      : null,
   );
-  // get user data from local storage
-  JSON.parse(localStorage.getItem("user") || "{}");
-  // get token from local storage
-  JSON.parse(localStorage.getItem("token") || "{}");
+
   const updateUser = (user: string) => {
     setUser(user);
     // save user in local storage.
     localStorage.setItem("user", JSON.stringify(user));
   };
+
   const updateToken = (token: string) => {
     setToken(token);
     // store token on local storage.
@@ -41,4 +42,8 @@ const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     </AuthContext.Provider>
   );
 };
-export { AuthContextProvider, useAuthContext };
+//create context.
+const AuthContext = createContext<AuthContextType | null>(null);
+export const useAuthContext = () => {
+  return useContext(AuthContext);
+};
