@@ -9,7 +9,7 @@ export type signupFormData = {
   email: string;
   phone: string;
   password: string;
-  passwordConfirm: string;
+  passwordConfirm: string | null;
 };
 const Signup = () => {
   const { mutateAsync } = useSignup();
@@ -34,7 +34,8 @@ const Signup = () => {
     passwordConfirm: yup
       .string()
       .required("Please confirm your password")
-      .oneOf([yup.ref("password"), null], "Passwords must match"),
+      .oneOf([yup.ref("password")], "Passwords must match")
+      .nullable(),
   });
   const {
     handleSubmit,

@@ -1,10 +1,6 @@
 import "dotenv/config";
 import mongoose from "mongoose";
-import { configDotenv } from "dotenv";
 import app from "./app";
-
-// Configure dotenv to read environment variables from a .env file
-configDotenv({ path: __dirname + "/.env" });
 
 // Handle uncaught exceptions
 process.on("uncaughtException", (err: Error) => {

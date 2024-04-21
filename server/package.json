@@ -4,9 +4,10 @@
   "description": "",
   "main": "dist/app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm install && npx tsc",
+    "start": "node dist/server.js",
     "dev": "nodemon server.ts",
-    "e2e": "cross-env DOTENV_CONFIG_PATH=.env.e2e nodemon"
+    "e2e": "cross-env DOTENV_CONFIG_PATH=.env.e2e nodemon --exec ts-node server.ts"
   },
   "author": "esmael",
   "license": "ISC",

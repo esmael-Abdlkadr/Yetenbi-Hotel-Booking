@@ -3,7 +3,6 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
 import { RiTiktokFill } from "react-icons/ri";
 function FooterComp() {
-  const currentYear = new Date().getFullYear();
   return (
     <footer className="bg-white dark:bg-gray-900">
       <div className="container px-6 py-12 mx-auto">
