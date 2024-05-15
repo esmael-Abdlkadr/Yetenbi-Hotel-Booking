@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
 import useLogin from "../API hooks/user/useLogin.tsx";
+
 interface formData {
   emailOrPhone: string;
   password: string;
@@ -100,8 +101,8 @@ function Login() {
                 </button>
                 <p className="mt-6 text-xs text-gray-600 text-center">
                   Don't have an account?{" "}
-                  <Link to={"/signin"}>
-                    <span className="text-blue-900 font-semibold">Sign in</span>
+                  <Link to={"/signup"}>
+                    <span className="text-blue-900 font-semibold">Sign Up</span>
                   </Link>
                 </p>
               </form>

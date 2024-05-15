@@ -1,9 +1,10 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import catchAsync from "../utils/catchAsync";
 import AppError from "../utils/AppErrror";
 import { Buffer } from "node:buffer";
 import cloudinary from "cloudinary";
-import { HotelType } from "../models/HotelModel";
+import Hotel, { HotelType } from "../models/HotelModel";
+
 const hotelController = {
   createHotel: catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
@@ -22,6 +23,16 @@ const hotelController = {
         // wait all uploads  before  continue to next step.
         const imageurl = await Promise.all(uploadPromises);
         newHotel.imageurls = imageurl;
+        newHotel.lastUpdated = new Date();
+        newHotel.userId = req.user._id;
+        // save the document.
+        const hotel = new Hotel(newHotel);
+        await hotel.save();
+        res.status(201).json({
+          status: "sucess",
+          message: "hotel created sucessfully",
+          data: { hotel },
+        });
       } catch (err: any) {
         console.log("error creating hotel", err);
         throw new AppError("something went wrong", 500);

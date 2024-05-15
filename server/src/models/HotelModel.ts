@@ -1,7 +1,7 @@
-import { Schema, model, Types, Mixed } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 
 export type HotelType = {
-  _id: string;
+  userId: string;
   admin: Types.ObjectId;
   name: string;
   city: string;
@@ -31,6 +31,10 @@ const hotelSchema = new Schema<HotelType>(
       type: String,
       required: [true, "name is required"],
       trim: true,
+    },
+    userId: {
+      type: String,
+      required: true,
     },
     city: {
       type: String,
@@ -72,6 +76,9 @@ const hotelSchema = new Schema<HotelType>(
         type: [Number], // Array of two numbers representing longitude and latitude
         index: "2dsphere", // 2dsphere index for efficient geospatial queries
       },
+    },
+    lastUpdated: {
+      type: Date,
     },
   },
   {
