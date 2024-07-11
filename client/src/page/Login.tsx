@@ -1,4 +1,4 @@
-import svg from "/booking-accommodation.jpg";
+// import svg from "/booking-accommodation.jpg";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -19,7 +19,7 @@ function Login() {
         "Please enter a valid email or phone number",
         (value) =>
           yup.string().email().isValidSync(value) ||
-          /^(\+\d{1,3}[- ]?)?\d{10}$/.test(value),
+          /^(\+\d{1,3}[- ]?)?\d{10}$/.test(value)
       )
       .required("Please enter an email or phone number"),
     password: yup
@@ -53,9 +53,9 @@ function Login() {
         <div className="flex-1 bg-blue-900 text-center hidden md:flex">
           <div
             className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url(${svg})`,
-            }}
+            // style={{
+            //   backgroundImage: `url(${svg})`,
+            // }}
           ></div>
         </div>
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
