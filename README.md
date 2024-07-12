@@ -71,29 +71,29 @@ Make sure you have the following installed:
    ```
    2.Install dependencies:
 
-# For frontend
+### For frontend
 
 cd client
 npm install
 
-# For backend
+### For backend
 
 cd ../server
 npm install 3. Set up environment variables:
 Create a .env file in the server directory and add your MongoDB URI, JWT secret, and other necessary configurations.
 4.Start the development server:
 
-# For backend
+### For backend
 
 cd server
 npm run dev
 
-# For frontend
+### For frontend
 
 cd ../client
 npm run dev
 
-# Usage
+## Usage
 
 Open your browser and navigate to http://localhost:3000 to see the frontend.
 Access the backend API at http://localhost:5000.
