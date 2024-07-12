@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Signup from "./page/Signup.tsx";
 import { Toaster, ToastOptions } from "react-hot-toast";
 import Login from "./page/Login.tsx";
+import { useAuthContext } from "./contexts/authContext.tsx";
+import AddHotel from "./page/AddHotel.tsx";
 
 const toastOPtion: ToastOptions = {
   duration: 3000,
@@ -15,11 +17,18 @@ const toastOPtion: ToastOptions = {
   },
 };
 function App() {
+  const { token } = useAuthContext();
   return (
     <BrowserRouter>
       <Routes>
         <Route path={"/signup"} element={<Signup />} />
         <Route path={"/login"} element={<Login />} />
+        <Route path="/add-hotel" element={<AddHotel />} />
+        {/* {token && (
+          <>
+            
+          </>
+        )} */}
         <Route
           path="/"
           element={
