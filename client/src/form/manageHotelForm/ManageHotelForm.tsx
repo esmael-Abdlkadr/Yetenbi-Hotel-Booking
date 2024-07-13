@@ -4,6 +4,7 @@ import HotelTypeSection from "./HotelTypeSection";
 import HotelAminities from "./HotelAmenities";
 import AdultChildSection from "./GuestSection";
 import UploadImage from "./ImageSections";
+import useAddHotel from "../../API hooks/hotel/useAddHotel";
 export type hotelFormData = {
   name: string;
   city: string;
@@ -22,7 +23,8 @@ export type hotelFormData = {
 };
 const ManageHotelForm = () => {
   const formMethod = useForm<hotelFormData>();
-  const { handleSubmit } = formMethod;
+  const { mutateAsync, isError } = useAddHotel();
+  const { handleSubmit, reset } = formMethod;
   const onSubmit = (data: hotelFormData) => {
     const formData = new FormData();
     formData.append("name", data.name);
@@ -40,8 +42,17 @@ const ManageHotelForm = () => {
     }
     formData.append("adultCount", data.adultCount.toString());
     formData.append("childCount", data.childCount.toString());
-    formData.append("location", JSON.stringify(data.location));
+    // formData.append("location", JSON.stringify(data.location));
 
+    try {
+      mutateAsync(data, {
+        onSuccess: () => {
+          reset();
+        },
+      });
+    } catch (err) {
+      console.log(err);
+    }
     console.log(data);
   };
   return (

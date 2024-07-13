@@ -9,7 +9,10 @@ const authController = {
   signup: catchAsync(
     async (req: Request, res: Response, next: NextFunction) => {
       const { email, password, passwordConfirm, name, phone } = req.body;
-      console.log("Signup request body:", req.body);
+      if (password !== passwordConfirm) {
+        return next(new AppError("Passwords do not match", 400));
+      }
+
       const user = await UserModel.findOne({ email });
       if (user) {
         return next(new AppError("User already exists", 400));
@@ -17,7 +20,6 @@ const authController = {
       const newUser = await UserModel.create({
         email,
         password,
-        passwordConfirm,
         name,
         phone,
       });
@@ -32,13 +34,13 @@ const authController = {
 
       res.status(201).json({
         status: "success",
-        message: "User created successfully",
+        message: "ccount created successfully",
         data: {
           newUser,
           token,
         },
       });
-    },
+    }
   ),
   login: catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const { emailOrPhone, password } = req.body;
@@ -99,7 +101,7 @@ const authController = {
       }
       req.user = user;
       next();
-    },
+    }
   ),
   logout: (_req: Request, res: Response) => {
     res.cookie("jwt_token", "loggedout", {
@@ -136,7 +138,7 @@ const authController = {
       res.cookie("jwt", token, {
         expires: new Date(
           Date.now() +
-            Number(process.env.JWT_COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000,
+            Number(process.env.JWT_COOKIE_EXPIRES_IN) * 24 * 60 * 60 * 1000
         ),
         httpOnly: false,
       });
@@ -144,7 +146,7 @@ const authController = {
         status: "success",
         message: "Password updated successfully",
       });
-    },
+    }
   ),
 };
 

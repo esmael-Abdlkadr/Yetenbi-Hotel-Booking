@@ -17,7 +17,7 @@ import * as crypto from "node:crypto";
 export interface IUser extends Document, userTYpe {
   comparePassword: (
     candidatePassword: string,
-    userPassword: string,
+    userPassword: string
   ) => Promise<boolean>;
   createPasswordResetToken: () => string;
 }
@@ -40,17 +40,7 @@ const userSchema = new Schema<IUser>(
       required: [true, "Password is required"],
       select: false,
     },
-    passwordConfirm: {
-      type: String,
-      required: [true, "Password Confirm is required"],
-      validate: {
-        // validate password confirm
-        validator: function (this: userTYpe, v: string) {
-          return this.password === v;
-        },
-        message: () => `Password and Confirm Password does not match`,
-      },
-    },
+
     name: {
       type: String,
       required: [true, "Full Name is required"],
@@ -59,6 +49,7 @@ const userSchema = new Schema<IUser>(
     role: {
       type: String,
       required: true,
+
       enum: ["user", "admin"],
       default: "user",
     },
@@ -69,7 +60,7 @@ const userSchema = new Schema<IUser>(
     passwordResetToken: String,
     passwordResetExpires: Date,
   },
-  { timestamps: true },
+  { timestamps: true }
 );
 // hash password before saving
 userSchema.pre("save", function (this: IUser, next) {
@@ -83,7 +74,7 @@ userSchema.pre("save", function (this: IUser, next) {
 //password comparison for login.
 userSchema.methods.comparePassword = async function (
   candidatePassword: string,
-  userPassword: string,
+  userPassword: string
 ) {
   return await bcrypt.compare(candidatePassword, userPassword);
 };

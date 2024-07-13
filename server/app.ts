@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import cookieParser = require("cookie-parser");
 import cors = require("cors");
 import authRoute from "./src/routes/authRoute";
+import hotelRoute from "./src/routes/hotelRoute";
 import { errorMiddleware } from "./src/utils/error";
 import path from "node:path";
 import { v2 as cloudinary } from "cloudinary";
@@ -18,6 +19,7 @@ app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 // production script.
 app.use(express.static(path.join(__dirname, "../../client/dist")));
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/hotel", hotelRoute);
 app.use(errorMiddleware);
 
 export default app;

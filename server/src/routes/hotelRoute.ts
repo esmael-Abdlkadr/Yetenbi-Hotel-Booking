@@ -8,4 +8,4 @@ router.use(authController.protect);
 router
   .route("/")
   .post(upload.array("imageFile", 6), hotelController.createHotel);
-module.exports = router;
+export default router;
