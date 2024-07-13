@@ -5,6 +5,7 @@ import { Toaster, ToastOptions } from "react-hot-toast";
 import Login from "./page/Login.tsx";
 import { useAuthContext } from "./contexts/authContext.tsx";
 import AddHotel from "./page/AddHotel.tsx";
+import AdminSignup from "./form/admin/AdminSignup.tsx";
 
 const toastOPtion: ToastOptions = {
   duration: 3000,
@@ -21,6 +22,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* admin routes */}
+        <Route path={"/admin/signup"} element={<AdminSignup />} />
         <Route path={"/signup"} element={<Signup />} />
         <Route path={"/login"} element={<Login />} />
         <Route path="/add-hotel" element={<AddHotel />} />

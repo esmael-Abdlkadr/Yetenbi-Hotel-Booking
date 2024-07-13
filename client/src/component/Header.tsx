@@ -41,16 +41,14 @@ export function NavBarComp() {
             }
           >
             <DropdownHeader>
-              <span className="block text-sm">Bonnie Green</span>
+              <span className="block text-sm">{user.name}</span>
               <span className="block truncate text-sm font-medium">
-                name@flowbite.com
+                {user.email}
               </span>
             </DropdownHeader>
-            <DropdownItem>Dashboard</DropdownItem>
             <DropdownItem>Settings</DropdownItem>
-            <DropdownItem>Earnings</DropdownItem>
             <DropdownDivider />
-            <DropdownItem>Sign out</DropdownItem>
+            <DropdownItem href="/logout">Log out</DropdownItem>
           </Dropdown>
           <NavbarToggle />
         </div>
