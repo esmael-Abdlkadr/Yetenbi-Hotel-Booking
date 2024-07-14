@@ -23,6 +23,10 @@ export interface IUser extends Document, userTYpe {
 }
 const userSchema = new Schema<IUser>(
   {
+    name: {
+      type: String,
+      required: [true, "Full Name is required"],
+    },
     email: {
       type: String,
       required: [true, "Email is required"],
@@ -39,19 +43,6 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: [true, "Password is required"],
       select: false,
-    },
-
-    name: {
-      type: String,
-      required: [true, "Full Name is required"],
-    },
-
-    role: {
-      type: String,
-      required: true,
-
-      enum: ["user", "admin"],
-      default: "user",
     },
     phone: {
       type: String,

@@ -1,6 +1,7 @@
 import express, { RequestHandler } from "express";
 import authController from "../controllers/authController";
-import { rateLimit } from "express-rate-limit";
+import rateLimit from "express-rate-limit";
+
 import verifyToken from "../middleware/auth";
 const router = express.Router();
 const limiter = rateLimit({
