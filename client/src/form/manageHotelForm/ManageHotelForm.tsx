@@ -4,7 +4,7 @@ import HotelTypeSection from "./HotelTypeSection";
 import HotelAminities from "./HotelAmenities";
 import AdultChildSection from "./GuestSection";
 import UploadImage from "./ImageSections";
-import useAddHotel from "../../API hooks/hotel/useAddHotel";
+// import useAddHotel from "../../API hooks/hotel/useAddHotel";
 export type hotelFormData = {
   name: string;
   city: string;
@@ -23,7 +23,7 @@ export type hotelFormData = {
 };
 const ManageHotelForm = () => {
   const formMethod = useForm<hotelFormData>();
-  const { mutateAsync, isError } = useAddHotel();
+  // const { mutateAsync, isError } = useAddHotel();
   const { handleSubmit, reset } = formMethod;
   const onSubmit = (data: hotelFormData) => {
     const formData = new FormData();
