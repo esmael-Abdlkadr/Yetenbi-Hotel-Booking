@@ -1,7 +1,14 @@
 import Logo from "@/component/Logo";
 import {
-    HiMiniSquares2X2, HiChevronDown, HiBriefcase, HiChevronRight,
-    HiHome, HiMiniChartBarSquare, HiMiniUser, HiCurrencyDollar, HiChatBubbleOvalLeft, HiMiniWrenchScrewdriver
+    HiMiniSquares2X2,
+    HiChevronDown,
+    HiBriefcase,
+    HiChevronRight,
+    HiHome,
+    HiMiniChartBarSquare,
+    HiMiniUser,
+
+    HiMiniCog6Tooth, HiMiniViewfinderCircle, HiBars3
 } from "react-icons/hi2";
 
 
@@ -12,22 +19,33 @@ interface ExpandState {
 }
 const  Sidebar=()=>{
     const[isExpand,setIsExpand]=useState<ExpandState>({})
+    const[isCollapsed,setIsCollapsed]=useState(false)
     const toggleLinks = (event: React.MouseEvent<SVGElement>) => {
         // Example: toggling based on the presence of a specific icon
         const sectionId = event.currentTarget.getAttribute('data-section-id') || 'defaultSection';
         setIsExpand(prevState => ({ ...prevState, [sectionId]: !prevState[sectionId] }));
     };
+    const toggleSidebar=()=>{
+        setIsCollapsed(!isCollapsed)
+    }
     return (<div>
-        <nav className={"bg-[#0f172a] shadow-lg h-screen fixed top-0   " +
-            "left-0 min-w-[300px] py-6 px-4   text-[#94a3b8] font-[sans-serif] overflow-auto "}>
-            <Logo/>
+        <nav className={`bg-[#0f172a] shadow-lg h-screen fixed top-0   " +
+            "left-0 ${isCollapsed? "min-w-[80px]":"min-w-[300px]"}  py-6 px-4   text-[#94a3b8] font-[sans-serif] overflow-auto `}>
+            <div className={"flex  gap-10 pl-4"}>
+                < HiBars3 size={30} onClick={toggleSidebar} className={"cursor-pointer"} />
+                {!isCollapsed &&  <Logo/>}
+
+            </div>
+
             <div className={"mt-8"}>
                 <div>
+
                     <Link to={"/"} className={"   flex items-center  gap-4" +
                         "  hover:text-[#0c4a6e] transition-all" +
                         "   hover:bg-[#efefef] rounded-md px-4 py-3   font-semibold"}>
                         <HiMiniSquares2X2 size={25}/>
-                        <span>Dashboard</span>
+                        {!isCollapsed && <span>Dashboard</span>}
+
                     </Link>
 
                 </div>
@@ -41,15 +59,18 @@ const  Sidebar=()=>{
                         "rounded-md px-4 py-3 hover:text-[#0c4a6e]    hover:bg-[#efefef]"}>
                     <div className="flex items-center gap-4 flex-grow  font-semibold">
                         <HiBriefcase size={25}/>
-                        <span>Bookings</span>
+                        {!isCollapsed && <span>Bookings</span>}
+
                     </div>
-                    <div className="flex justify-end flex-grow">
+
+                    {!isCollapsed && <div className="flex justify-end flex-grow">
                         {isExpand['bookings'] ?
                             <HiChevronDown size={25} data-section-id="bookings" onClick={toggleLinks}/>
                             : <HiChevronRight size={25} data-section-id="bookings" onClick={toggleLinks}/>
                         }
-                    </div>
+                    </div>}
                 </div>
+
                 {isExpand['bookings'] && <div className={"flex flex-col gap-4 text-[#cbd5e1] pl-8 mt-4"}>
                     <Link to={""}>All Booking</Link>
                     <Link to={""}>Add Booking</Link>
@@ -66,13 +87,15 @@ const  Sidebar=()=>{
                         "rounded-md px-4 py-3"}>
                     <div className="flex items-center gap-4 flex-grow  font-semibold">
                         <HiHome size={25}/>
-                        <span>Rooms</span>
+                        {!isCollapsed && <span>Rooms</span>}
+
                     </div>
-                    <div className="flex justify-end flex-grow">
+                    {!isCollapsed && <div className="flex justify-end flex-grow">
                         {isExpand["room"] ? <HiChevronDown size={25} data-section-id={"room"} onClick={toggleLinks}/>
                             : <HiChevronRight size={25} data-section-id={"room"} onClick={toggleLinks}/>}
 
-                    </div>
+                    </div>}
+
                 </div>
                 {isExpand["room"] && <div className={"flex flex-col gap-4  text-[#cbd5e1] pl-8  mt-4"}>
                     <Link to={""}>All Rooms</Link>
@@ -91,14 +114,16 @@ const  Sidebar=()=>{
                         "rounded-md px-4 py-3"}>
                     <div className="flex items-center gap-4 flex-grow  font-semibold">
                         <HiMiniChartBarSquare size={25}/>
-                        <span>Reports</span>
+                        {!isCollapsed && <span>Reports</span>}
+
                     </div>
-                    <div className="flex justify-end flex-grow">
+                    {!isCollapsed && <div className="flex justify-end flex-grow">
                         {isExpand["report"] ?
                             <HiChevronDown size={25} data-section-id={"report"} onClick={toggleLinks}/>
                             : <HiChevronRight size={25} data-section-id={"report"} onClick={toggleLinks}/>}
 
-                    </div>
+                    </div>}
+
                 </div>
                 {isExpand["report"] && <div className={"flex flex-col gap-4  text-[#cbd5e1] pl-8  mt-4"}>
                     <Link to={""}>Stocks</Link>
@@ -116,19 +141,42 @@ const  Sidebar=()=>{
                         "  hover:text-[#0c4a6e] transition-all" +
                         "   hover:bg-[#efefef] rounded-md px-4 py-3   font-semibold"}>
                         <HiMiniUser size={25}/>
-                        <span>Customers</span>
+                        {!isCollapsed && <span>Customers</span>}
+
                     </Link>
 
                 </div>
 
-            </div>  {/*-8*/}
+            </div>
+            {/*-6*/}
             <div className={"mt-8"}>
                 <div>
                     <Link to={"/"} className={"   flex items-center  gap-4" +
                         "  hover:text-[#0c4a6e] transition-all" +
                         "   hover:bg-[#efefef] rounded-md px-4 py-3   font-semibold"}>
-                        < HiMiniWrenchScrewdriver size={25}/>
-                        <span>Setting</span>
+                        <  HiMiniCog6Tooth size={25}/>
+                        {!isCollapsed && <span>Setting</span>}
+
+                    </Link>
+
+                </div>
+
+            </div>
+            {/*    footer*/}
+            {!isCollapsed && <div className={"mt-6  px-4"}>
+                <p className={"text-[14px] font-semibold text-[#e2e8f0]"}>Return To</p>
+
+
+            </div>}
+
+            <div className={"mt-8"}>
+                <div>
+                    <Link to={"/"} className={"   flex items-center  gap-4" +
+                        "  hover:text-[#0c4a6e] transition-all" +
+                        "   hover:bg-[#efefef] rounded-md px-4 py-3   font-semibold"}>
+                        <   HiMiniViewfinderCircle size={25}/>
+                        {!isCollapsed && <span>Main Dashboard</span>}
+
                     </Link>
 
                 </div>

@@ -1,10 +1,16 @@
 import Sidebar from "@/admin/dashbaord/Sidebar";
+import DashboardHome from "@/admin/dashbaord/DashboardHome";
+import {SidebarProvider} from "@/contexts/SidebarContext";
 
 const AdminDahsboard=()=>{
     return(
-        <div>
-           <Sidebar/>
-        </div>
+        <SidebarProvider>
+            <div>
+                <Sidebar/>
+                <DashboardHome/>
+            </div>
+        </SidebarProvider>
+
     )
 
 }
