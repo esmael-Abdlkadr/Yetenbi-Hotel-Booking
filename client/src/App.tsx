@@ -6,6 +6,8 @@ import Login from "./page/Login.tsx";
 import { useAuthContext } from "./contexts/authContext.tsx";
 import AddHotel from "./page/AddHotel.tsx";
 import AdminSignup from "./admin/signupForm/Signup.tsx";
+import AdminLogin from "@/admin/LoginForm/Login";
+import AdminDahsboard from "@/admin/dashbaord/Dashboard";
 
 
 const toastOPtion: ToastOptions = {
@@ -25,6 +27,8 @@ function App() {
       <Routes>
         {/* admin routes */}
         <Route path={"/admin/signup"} element={<AdminSignup />} />
+        <Route path={"/admin/login"} element={<AdminLogin />} />
+          <Route path={"/dashbaord"} element={<AdminDahsboard/>} />
         <Route path={"/signup"} element={<Signup />} />
         <Route path={"/login"} element={<Login />} />
         <Route path="/add-hotel" element={<AddHotel />} />

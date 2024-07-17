@@ -5,12 +5,12 @@ import ProfileSection from "@/admin/signupForm/ProfileSection";
 import FormHeader from "@/admin/signupForm/FormHeader";
 
 const AdminSignup=()=>{
-    return (<div className={"flex flex-col  gap-10"}>
+    return (<div className={"flex flex-col justify-center  gap-10 px-[110px]"}>
         <FormHeader/>
         <UserInfo/>
         <WorkInfo/>
         <ProfileSection/>
-        <div className="grid w-full max-w-sm items-center">
+        <div className="  grid   max-w-sm  sm:max-w-0   items-center  w-full ">
             <Button className={""}>Submit</Button>
         </div>
     </div>)

@@ -2,9 +2,12 @@
 
 const UserInfo=()=>{
     return (
-        <div className="grid sm:grid-cols-2 gap-8">
-            <div>
-                <label className="text-gray-800 text-sm mb-2 block">First Name</label>
+        <div>
+            <h1 className={"text-2xl font-semibold  text-center  mb-5 "}>Personal Information</h1>
+
+    <div className="grid sm:grid-cols-2 gap-8">
+        <div>
+        <label className="text-gray-800 text-sm mb-2 block">First Name</label>
                 <input
                     name="name"
                     type="text"
@@ -22,7 +25,7 @@ const UserInfo=()=>{
                 />
             </div>
             <div>
-                <label className="text-gray-800 text-sm mb-2 block">Email Id</label>
+                <label className="text-gray-800 text-sm mb-2 block">Email </label>
                 <input
                     name="email"
                     type="text"
@@ -57,6 +60,7 @@ const UserInfo=()=>{
                     placeholder="Enter confirm password"
                 />
             </div>
+        </div>
         </div>
     )
 }

@@ -1,27 +1,35 @@
 
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
 
 const WorkInfo=()=>{
     return(<div>
 
         <h1 className={"text-2xl font-semibold  text-center  mb-5 "}>Work Info</h1>
 
-        <div className={"grid  grid-cols-1  gap:5  md:grid-cols-2 md:gap-x-10  md:gap-y-6"}>
+            <div className={"grid sm:grid-cols-2 gap-8"}>
 
 
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="dep">Department</Label>
-                <Input  id="dep" placeholder="Departement"/>
+                <div>
+                    <label className="text-gray-800 text-sm mb-2 block">Department</label>
+                    <input
+                        name="department"
+                        type="text"
+                        className="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all"
+                        placeholder="Enter Department"
+                    />
+                </div>
+                {/*    Id.*/}
+                <div>
+                    <label className="text-gray-800 text-sm mb-2 block">Employee Id</label>
+                    <input
+                        name="id"
+                        type="text"
+                        className="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3.5 rounded-md focus:bg-transparent outline-blue-500 transition-all"
+                        placeholder="Enter Your Id"
+                    />
+                </div>
             </div>
-            {/*    Id.*/}
-            <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="id">Employee Id</Label>
-                <Input id="id" placeholder="Employee Id"/>
-            </div>
+
         </div>
-
-    </div>
     )
 }
 export default WorkInfo
