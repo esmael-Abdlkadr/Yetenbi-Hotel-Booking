@@ -12,7 +12,8 @@ import Card from "./Card"
 import {CardValue} from "@/admin/dashbaord/CardValue";
 import TopFeature from "@/admin/dashbaord/TopFeature";
 import BookingChart from "@/admin/dashbaord/BookingChart";
-
+import { HiOutlineArrowSmallUp,HiOutlineArrowSmallDown } from "react-icons/hi2";
+import ExspenseChart from "@/admin/dashbaord/ExspenseChart";
 const DashboardHome=()=>{
     const { isCollapsed } = useSidebarContext();
     return(
@@ -59,20 +60,90 @@ const DashboardHome=()=>{
             </div>
         {/*    package-features*/}
             <div className={"grid grid-cols-2 gap-4"}>
-                <div className={"bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm\n" +
+                <div className={"bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full " +
                     "        rounded-lg font-sans overflow-hidden mx-auto mt-4"}>
+                    <div className={"flex flex-col gap-3 ml-6"}>
+                        <h3 className={"text-xl text-slate-600 font-semibold"}>Sales Revenue
+                        </h3>
+                        <p className={"text-slate-500"}>In last 30 days revenue from rent.</p>
+                    </div>
+                    {/*......*/}
+                    <div className={"grid grid-cols-3 gap-4 mt-6 ml-6"}>
+                        {/*1*/}
+                        <p className={"text-slate-400"}>Monthly</p>
+                        <p className={"text-slate-400"}>weekly</p>
+                        <p className={"text-slate-400"}>Daily(Avg)</p>
+
+
+                        {/*1*/}
+                        <p className={"text-3xl text-slate-600 "}>9.2k</p>
+                        <p className={"text-3xl text-slate-600"}>9.2k</p>
+                        <p className={"text-3xl text-slate-600"}>9.2k</p>
+
+                        {/*1*/}
+                        <p className={"text-[#34d399] text-xs flex gap-2 items-center"}>
+                            <HiOutlineArrowSmallUp/> <span>4.5%</span></p>
+                        <p className={"text-[#34d399] text-xs flex gap-2 items-center"}>
+                            <HiOutlineArrowSmallUp/> <span>4.5%</span></p>
+                        <p className={"text-[#34d399] text-xs flex gap-2 items-center"}>
+                            <HiOutlineArrowSmallUp/> <span>4.5%</span></p>
+
+                    </div>
                     <TopFeature/>
                 </div>
-         <div className={"bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm\n" +
+                <div className={"bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full \n" +
              "        rounded-lg font-sans overflow-hidden mx-auto mt-4"}>
+             <div className={"flex items-center justify-around gap-4 ml-6 mt-5"}>
+                 <h3 className={"text-xl text-slate-600 font-semibold"}>Room Booking Chart
+                 </h3>
+                 <DropdownMenu>
+                     <DropdownMenuTrigger asChild >
+                         <Button variant="outline">
+                         choose
+                         </Button>
+                     </DropdownMenuTrigger>
+                     <DropdownMenuContent className="w-56">
+                         <DropdownMenuLabel>choose Time frame</DropdownMenuLabel>
+                         <DropdownMenuSeparator/>
+                         <DropdownMenuRadioGroup>
+                             <DropdownMenuRadioItem value="top">7 days</DropdownMenuRadioItem>
+                             <DropdownMenuRadioItem value="bottom">15 days</DropdownMenuRadioItem>
+                             <DropdownMenuRadioItem value="right">30 days</DropdownMenuRadioItem>
+                         </DropdownMenuRadioGroup>
+                     </DropdownMenuContent>
+                 </DropdownMenu>
+
+             </div>
              <BookingChart/>
          </div>
 
             </div>
+        {/*exspense chart*/}
+            <div className={"bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full " +
+                "        rounded-lg font-sans overflow-hidden mx-auto mt-8"}>
+                <div className={"flex flex-col gap-3 ml-6"}>
+                    <h3 className={"text-xl text-slate-600 font-semibold"}>Expense vs Income
+                    </h3>
+                    <p className={"text-slate-500"}>How was your income and Expenses this month.</p>
+                </div>
+                <div className={"grid grid-cols-2 w-[50%] mt-6 ml-6"}>
+                    {/*1*/}
+                    <p className={"text-[#0284c7]"}>Income</p>
+                    <p className={"text-[#be123c]"}>Exspense</p>
 
+                    {/*1*/}
+                    <p className={"text-3xl text-slate-600 "}>9.2k</p>
+                    <p className={"text-3xl text-slate-600"}>9.2k</p>
+                    {/*1*/}
+                    <p className={"text-[#34d399] text-xs flex gap-2 items-center"}>
+                        <HiOutlineArrowSmallUp/> <span>4.5%</span></p>
+                    <p className={"text-[#34d399] text-xs flex gap-2 items-center"}>
+                        <HiOutlineArrowSmallUp/> <span>4.5%</span></p>
+                </div>
+                <ExspenseChart/>
+
+            </div>
         </div>
-
-
 
 
     )
