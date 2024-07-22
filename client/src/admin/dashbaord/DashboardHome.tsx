@@ -8,7 +8,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
 import {HiOutlineCalendarDays,HiOutlineChevronRight,HiOutlineChartBar} from "react-icons/hi2";
-
+import Card from "./Card"
+import {CardValue} from "@/admin/dashbaord/CardValue";
+import TopFeature from "@/admin/dashbaord/TopFeature";
+import BookingChart from "@/admin/dashbaord/BookingChart";
 
 const DashboardHome=()=>{
     const { isCollapsed } = useSidebarContext();
@@ -46,7 +49,32 @@ const DashboardHome=()=>{
 
 
             </div>
+        {/*    cards*/}
+            <div className={"grid  grid-cols-3 gap-4"}>
+                {CardValue.map( card=>(
+                    <Card title={card.title} amount={card.amount}
+                          decrease={card.decrease} smallTitle1={card.smallTitle1}
+                          smallTitle2={card.smallTitle2} smallValue1={card.smallValue1} smallValue2={card.smallValue2}/>))
+                }
+            </div>
+        {/*    package-features*/}
+            <div className={"grid grid-cols-2 gap-4"}>
+                <div className={"bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm\n" +
+                    "        rounded-lg font-sans overflow-hidden mx-auto mt-4"}>
+                    <TopFeature/>
+                </div>
+         <div className={"bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full max-w-sm\n" +
+             "        rounded-lg font-sans overflow-hidden mx-auto mt-4"}>
+             <BookingChart/>
+         </div>
+
+            </div>
+
         </div>
+
+
+
+
     )
 }
 export default DashboardHome;
