@@ -14,20 +14,20 @@ import {
 
 import {Link} from "react-router-dom";
 import {useState} from "react";
+import {useSidebarContext} from "@/contexts/SidebarContext";
 interface ExpandState {
     [key: string]: boolean;
 }
 const  Sidebar=()=>{
     const[isExpand,setIsExpand]=useState<ExpandState>({})
-    const[isCollapsed,setIsCollapsed]=useState(false)
+    const { isCollapsed, toggleSidebar } = useSidebarContext();
+
     const toggleLinks = (event: React.MouseEvent<SVGElement>) => {
         // Example: toggling based on the presence of a specific icon
         const sectionId = event.currentTarget.getAttribute('data-section-id') || 'defaultSection';
         setIsExpand(prevState => ({ ...prevState, [sectionId]: !prevState[sectionId] }));
     };
-    const toggleSidebar=()=>{
-        setIsCollapsed(!isCollapsed)
-    }
+ 
     return (<div>
         <nav className={`bg-[#0f172a] shadow-lg h-screen fixed top-0   " +
             "left-0 ${isCollapsed? "min-w-[80px]":"min-w-[300px]"}  py-6 px-4   text-[#94a3b8] font-[sans-serif] overflow-auto `}>

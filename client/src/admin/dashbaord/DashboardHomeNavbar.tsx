@@ -48,7 +48,7 @@ const DashboardHomeNavbar = () => {
     }, []);
 
     return (
-        <div style={{ marginLeft: isCollapsed ? "80px" : "300px" }} className={"bg-[#e2e8f0]  flex gap-5 justify-between"}>
+        <div style={{ marginLeft: isCollapsed ? "90px" : "305px" }} className={"bg-[#e2e8f0]  flex gap-5 justify-between"}>
             <div>
                 <h6>Dashboard</h6>
             </div>
