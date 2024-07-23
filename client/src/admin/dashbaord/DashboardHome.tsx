@@ -14,6 +14,8 @@ import TopFeature from "@/admin/dashbaord/TopFeature";
 import BookingChart from "@/admin/dashbaord/BookingChart";
 import { HiOutlineArrowSmallUp,HiOutlineArrowSmallDown } from "react-icons/hi2";
 import ExspenseChart from "@/admin/dashbaord/ExspenseChart";
+import NewCustomerOverview from "@/admin/dashbaord/customer/NewCustomerOverview";
+import RecentActivities from "@/admin/dashbaord/RecentActivities";
 const DashboardHome=()=>{
     const { isCollapsed } = useSidebarContext();
     return(
@@ -118,7 +120,7 @@ const DashboardHome=()=>{
          </div>
 
             </div>
-        {/*exspense chart*/}
+        {/*expense chart*/}
             <div className={"bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] w-full " +
                 "        rounded-lg font-sans overflow-hidden mx-auto mt-8"}>
                 <div className={"flex flex-col gap-3 ml-6"}>
@@ -142,6 +144,11 @@ const DashboardHome=()=>{
                 </div>
                 <ExspenseChart/>
 
+            </div>
+        {/*    customer-chart*/}
+            <div className={" grid grid-cols-2 gap-5 mt-6"}>
+                <NewCustomerOverview/>
+                <RecentActivities/>
             </div>
         </div>
 
