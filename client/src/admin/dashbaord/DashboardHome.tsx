@@ -12,7 +12,7 @@ import Card from "./Card"
 import {CardValue} from "@/admin/dashbaord/CardValue";
 import TopFeature from "@/admin/dashbaord/TopFeature";
 import BookingChart from "@/admin/dashbaord/BookingChart";
-import { HiOutlineArrowSmallUp,HiOutlineArrowSmallDown } from "react-icons/hi2";
+import { HiOutlineArrowSmallUp } from "react-icons/hi2";
 import ExspenseChart from "@/admin/dashbaord/ExspenseChart";
 import NewCustomerOverview from "@/admin/dashbaord/customer/NewCustomerOverview";
 import RecentActivities from "@/admin/dashbaord/RecentActivities";

@@ -40,7 +40,7 @@ const  Sidebar=()=>{
             <div className={"mt-8"}>
                 <div>
 
-                    <Link to={"/"} className={"   flex items-center  gap-4" +
+                    <Link to={"/dashboard"} className={"   flex items-center  gap-4" +
                         "  hover:text-[#0c4a6e] transition-all" +
                         "   hover:bg-[#efefef] rounded-md px-4 py-3   font-semibold"}>
                         <HiMiniSquares2X2 size={25}/>
@@ -72,7 +72,7 @@ const  Sidebar=()=>{
                 </div>
 
                 {isExpand['bookings'] && <div className={"flex flex-col gap-4 text-[#cbd5e1] pl-8 mt-4"}>
-                    <Link to={""}>All Booking</Link>
+                    <Link to={"/dashboard/all-customers"}>All Booking</Link>
                     <Link to={""}>Add Booking</Link>
                     <Link to={""}>Edit Booking</Link>
                 </div>
