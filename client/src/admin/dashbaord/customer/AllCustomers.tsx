@@ -12,6 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import customerData from "@/admin/dashbaord/customer/data";
 import { useMemo, useState } from "react";
+import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 
 type GlobalFilterProps = {
     globalFilter: string;
@@ -25,8 +26,8 @@ function GlobalFilter({ globalFilter, setGlobalFilter }: GlobalFilterProps) {
             <Input
                 value={globalFilter || ""}
                 onChange={(e) => setGlobalFilter(e.target.value)}
-                placeholder={`Search records...`}
-                className="border border-gray-300 rounded-md px-2 py-1"
+                placeholder={`Search Here...`}
+                className="border border-gray-300 rounded-md px-2 py-1 w-[30%] mb-6"
             />
     </span>
     );
@@ -43,40 +44,96 @@ const AllCustomers = () => {
             {
                 header: "ID",
                 accessorKey: "id",
+                cell:info=>info.getValue(),
+                headerProps:()=>({
+                    className:"text-xs font-medium text-gray-500 uppercase tracking-wider"
+                }),
+                cellProps: () => ({
+                    className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500",
+                }),
             },
             {
-                header: "Avatar",
-                accessorKey: "avatar",
-
+                header: 'Customer',
+                id: 'customer',
+                cell: info => (
+                    <div className="flex gap-4 items-center">
+                        <Avatar>
+                            <AvatarImage src={info.row.original.profileUrl} alt="Avatar" />
+                            <AvatarFallback>{info.row.original.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div className="flex flex-col gap-3 justify-center">
+                            <span className="text-lg text-[#334155] font-medium capitalize">{info.row.original.name}</span>
+                            <span className="text-[#64748b] text-xs">{info.row.original.email}</span>
+                        </div>
+                    </div>
+                ),
+                cellProps: () => ({
+                    className: "flex gap-4 items-center",
+                }),
             },
             {
-                header: "Name",
-                accessorKey: "name",
+                header: 'Package',
+                accessorKey: 'package',
+                cell: info => info.getValue(),
+                headerProps: () => ({
+                    className: "text-xs font-medium text-gray-500 uppercase tracking-wider",
+                }),
+                cellProps: () => ({
+                    className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500",
+                }),
             },
             {
-                header: "Email",
-                accessorKey: "email",
+                header: 'Booking',
+                accessorKey: 'booking',
+                cell: info => (
+                    <span style={{ color: info.getValue() === 'Confirmed' ? '#059669' : undefined }}>
+            {info.getValue()}
+        </span>
+                ),
+                headerProps: () => ({
+                    className: "text-xs font-medium text-gray-500 uppercase tracking-wider",
+                }),
+                cellProps: () => ({
+                    className: "px-6 py-4 whitespace-nowrap text-sm",
+                }),
             },
             {
-                header: "Package",
-                accessorKey: "package",
+                header: 'roomType',
+                accessorKey: 'roomType',
+                cell: info => info.getValue(),
+                headerProps: () => ({
+                    className: "text-xs font-medium text-gray-500 uppercase tracking-wider",
+                }),
+                cellProps: () => ({
+                    className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500",
+                }),
             },
             {
-                header: "Booking Status",
-                accessorKey: "bookingStatus",
+                header: 'arrive',
+                accessorKey: 'arrive',
+                cell: info => info.getValue(),
+                headerProps: () => ({
+                    className: "text-xs font-medium text-gray-500 uppercase tracking-wider",
+                }),
+                cellProps: () => ({
+                    className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500",
+                }),
             },
             {
-                header: "Room Type",
-                accessorKey: "roomType",
-            },
-            {
-                header: "Arrive Date",
-                accessorKey: "arriveDate",
-            },
-            {
-                header: "Payment Status",
-                accessorKey: "paymentStatus",
-            },
+                header: 'Payment',
+                accessorKey: 'payment',
+                cell: info => (
+                    <span style={{ color: info.getValue() === 'Paid' ? '#059669' : (info.getValue() === 'Due' ? '#fcd34d' : undefined) }}>
+            {info.getValue()}
+        </span>
+                ),
+                headerProps: () => ({
+                    className: "text-xs font-medium text-gray-500 uppercase tracking-wider",
+                }),
+                cellProps: () => ({
+                    className: "px-6 py-4 whitespace-nowrap text-sm",
+                }),
+            }
         ],
         []
     );
