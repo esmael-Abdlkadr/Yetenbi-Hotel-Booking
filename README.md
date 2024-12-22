@@ -1,6 +1,6 @@
 # Yetenbi Hotel Booking App
 
-A comprehensive Hotel Booking application built using the MERN stack with TypeScript. The project leverages modern UI libraries and state management tools to provide a seamless booking experience.
+A comprehensive Hotel Booking application built using the MERN stack with TypeScript. The project leverages modern UI libraries and state management tools to provide a seamless booking experiences.
 
 ## Table of Contents
 
